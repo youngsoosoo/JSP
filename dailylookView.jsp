@@ -1,3 +1,6 @@
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@page import="java.util.Enumeration"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
@@ -22,7 +25,7 @@
 </style>
 </head>
 <body>
-	<%
+	<%	
 	String USERID = (String) session.getAttribute("id");
 
 	if(USERID ==null){
@@ -78,7 +81,7 @@
 					</tr>
 					<tr>
 						<td>이미지</td>
-						<td colspan="2"><%= bbs.getBbsimg()%></td>
+						<td colspan="2"><img alt="<%= bbs.getBbsimg()%>" src="fileSave/<%=bbs.getBbsimg() %>" width="500" height="500"></td>
 					</tr>
 					<tr>
 						<td>내용</td>

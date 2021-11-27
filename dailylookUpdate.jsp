@@ -46,7 +46,7 @@
 	%>
 	<div class="container">
 		<div class="row">
-			<form method="post" action="dailylookUpdateSave.jsp?bbsID=<%= bbsID %>">
+			<form method="post" action="dailylookUpdateSave.jsp?bbsID=<%= bbsID %>" enctype="multipart/form-data">
 				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 					<caption>
 						<jsp:include page="/Header.jsp" flush="false"/>

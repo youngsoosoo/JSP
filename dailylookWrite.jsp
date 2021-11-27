@@ -34,7 +34,7 @@
 %>
 	<div class="container">
 		<div class="row">
-			<form method="post" action="dailylookWriteSave.jsp">
+			<form method="post" action="dailylookWriteSave.jsp" enctype="multipart/form-data">
 				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 					<caption>
 						<jsp:include page="/Header.jsp" flush="false"/>
