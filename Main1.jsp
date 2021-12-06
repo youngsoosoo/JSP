@@ -76,7 +76,7 @@
     }
     .color {
         display : inline-block;
-        margin-left : 300px;
+        margin-left : 250px;
     }
     .colorbox {
         display : inline-block;

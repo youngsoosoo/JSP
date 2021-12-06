@@ -3,8 +3,8 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.io.PrintWriter"%>
-<%@page import="user.UserDAO"%>
 <%@ page import="user.UserDTO"%>
+<%@ include file="connectDB.jsp" %><!-- 데이터베이스 커넥션 생성 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,16 +15,6 @@
 </head>
 <body>
 <%
-Connection conn;
-PreparedStatement pstmt;
-ResultSet rs;
-
-String dbURL = "jdbc:mysql://localhost:3306/jspDB";
-String dbID = "root";
-String dbPassword = "1018pskc!!";
-Class.forName("com.mysql.jdbc.Driver");
-conn = DriverManager.getConnection(dbURL, dbID, dbPassword); 
-
 request.setCharacterEncoding("UTF-8");
 String ID 		= request.getParameter("id"); 
 String Password = request.getParameter("password"); 
@@ -49,12 +39,30 @@ if (ID == null || ID.equals("") || Password == null
 	script.close();
 	return;
 }
+if (result == 1) {
+	session.setAttribute("id", ID);
+	PrintWriter script = response.getWriter();
+	script.println("<script type=\"text/javascript\">");
+	script.println("alert('회원가입에 성공했습니다.')");
+	script.println("location.href='Main.jsp';");
+	script.println("</script>");
+	script.close();
+	return;
+}else if (result == -1) {
+	PrintWriter script = response.getWriter();
+	script.println("<script type=\"text/javascript\">");
+	script.println("alert('회원가입에 실패했습니다.')");
+	script.println("history.go(-1);");
+	script.println("</script>");
+	script.close();
+	return;
+}
 
 %>
 <script>
 	alert("회원가입 성공!");
 	self.close();
-	opener.location = "login.jsp";
+	opener.location = "Main.jsp";
 </script>
 </body>
 </html>

@@ -4,9 +4,9 @@
 <%@page import="java.sql.DriverManager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="user.UserDAO"%>
 <%@ page import="user.UserDTO"%>
 <%@page import="java.io.PrintWriter"%>
+<%@ include file="connectDB.jsp" %><!-- 데이터베이스 커넥션 생성 -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,16 +15,7 @@
 </head>
 <body>
 <%
-Connection conn;
-PreparedStatement pstmt;
-ResultSet rs;
 int result = -2;
-
-String dbURL = "jdbc:mysql://localhost:3306/jspDB";
-String dbID = "root";
-String dbPassword = "1018pskc!!";
-Class.forName("com.mysql.jdbc.Driver");
-conn = DriverManager.getConnection(dbURL, dbID, dbPassword); 
 
 request.setCharacterEncoding("UTF-8");
 String ID = request.getParameter("id"); 
@@ -68,13 +59,11 @@ if (result == 1) {
 } else if (result == -2) {
 	PrintWriter script = response.getWriter();
 	script.println("<script type=\"text/javascript\">");
-	script.println("alert('데이터베이스 오류가 발생했습니다.')");
+	script.println("alert('아이디가 존재하지 않습니다.')");
 	script.println("history.go(-1);");
 	script.println("</script>");
 	script.close();
 }
 %>
-</body>
-</html>
 </body>
 </html>

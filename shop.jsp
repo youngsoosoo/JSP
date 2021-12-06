@@ -139,7 +139,6 @@
 	<header>
     <jsp:include page="/Header.jsp" flush="false"/>
         <h3>쇼핑몰 추천</h3>
-    </p>
     </header>
     <section>
     <div class="bigbox">

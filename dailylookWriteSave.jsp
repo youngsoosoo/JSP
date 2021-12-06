@@ -3,13 +3,13 @@
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.io.PrintWriter"%>
-<%@page import="bbs.BbsDAO"%>
+<%@ include file="connectDB.jsp" %><!-- 데이터베이스 커넥션 생성 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("utf-8"); %>
-<jsp:useBean id="bbs" class="bbs.Bbs" scope="page" />
-<jsp:setProperty name="bbs" property="bbstitle" />
-<jsp:setProperty name="bbs" property="bbscontent" />
+<jsp:useBean id="Board" class="Board.Board" scope="page" />
+<jsp:setProperty name="Board" property="boardtitle" />
+<jsp:setProperty name="Board" property="boardcontent" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,11 +30,29 @@
 		MultipartRequest mr = new MultipartRequest(request, real, max, "utf-8",	new DefaultFileRenamePolicy());
 		
 		String USERID = null;
-		String bbstitle = mr.getParameter("bbstitle");
-		String bbscontent = mr.getParameter("bbscontent");
-		String filename = mr.getOriginalFileName("bbsimg");
+		String boardtitle = mr.getParameter("boardtitle");
+		String boardcontent = mr.getParameter("boardcontent");
+		String filename = mr.getOriginalFileName("boardimg");
 		File file = new File(real+"/"+filename);
+		
+		String datenow = null;
+		String sql1 = "select now()";
+		pstmt = conn.prepareStatement(sql1);
+		rs = pstmt.executeQuery(sql1);
+		if(rs.next()){
+			datenow = rs.getString(1);
+		}
+		
+		//현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
+		int next = 1;//첫 번째 게시물인 경우
+		String sql2 = "select boardid from board order by boardid desc";
+		pstmt = conn.prepareStatement(sql2);
+		rs = pstmt.executeQuery(sql2);
+		if(rs.next()) {
+			next = rs.getInt(1) + 1;
+		}
 
+		
 		if(session.getAttribute("id") != null){
 			USERID = (String)session.getAttribute("id");
 		}
@@ -45,26 +63,28 @@
 			script.println("location.href='Main.jsp'");
 			script.println("</script>");
 		}else{
-			if(bbstitle == null || bbscontent == null){
+			if(boardtitle == null || boardcontent == null){
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("alert('입력이 안 된 사항이 있습니다')");
 				script.println("history.back()");
 				script.println("</script>");
 			}else{
-				BbsDAO bbsDAO = new BbsDAO();
-				int result = bbsDAO.write(bbstitle, USERID, bbscontent, filename);
-				if(result == -1){
-					PrintWriter script = response.getWriter();
-					script.println("<script>");
-					script.println("alert('글쓰기에 실패했습니다')");
-					script.println("history.back()");
-					script.println("</script>");
-				}else {
+				String sql3 = "insert into board values('"+next+"', '"+boardtitle+"', '"+USERID+"', '"+datenow+"', '"+boardcontent+"', '"+filename+"')";
+				pstmt = conn.prepareStatement(sql3);
+				int result = pstmt.executeUpdate(sql3);
+				if(result == 1){
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
 					script.println("alert('글쓰기 성공')");
 					script.println("location.href='dailylook.jsp'");
+					
+					script.println("</script>");
+				}else {
+					PrintWriter script = response.getWriter();
+					script.println("<script>");
+					script.println("alert('글쓰기에 실패했습니다')");
+					script.println("history.back()");
 					script.println("</script>");
 				}
 			}

@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="connectDB.jsp" %><!-- 데이터베이스 커넥션 생성 -->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width-device-width", initial-scale="1">
+<meta name="viewport" content="width-device-width">
 <link rel="stylesheet" href="css/bootstrap.css">
 <title>Insert title here</title>
 <style>
@@ -46,17 +47,17 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td><input type="text" class="form-control" placeholder="글 제목" name="bbstitle" maxlength="50"></td>
+							<td><input type="text" class="form-control" placeholder="글 제목" name="boardtitle" maxlength="50"></td>
 						</tr>
 						<tr>
-							<td><input type="file" class="form-control" name="bbsimg" required="required"></td>
+							<td><input type="file" class="form-control" name="boardimg" required="required"></td>
 						</tr>
 						<tr>
 							<td><textarea class="form-control" placeholder="글 내용 양식
 	- 키 : 
 	- 몸무게 : 
 	- 옷 판매 정보 : 
-	- 하고싶은 말 : " name="bbscontent" maxlength="2048" style="height: 350px;"></textarea></td>
+	- 하고싶은 말 : " name="boardcontent" maxlength="2048" style="height: 350px;"></textarea></td>
 						</tr>
 					</tbody>
 				</table>

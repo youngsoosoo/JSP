@@ -66,7 +66,6 @@
     <header>
     <jsp:include page="/Header.jsp" flush="false"/>
         <h3>패션 유튜버</h3>
-    </p>
     </header>
     <section>
     <div class="bigbox">
