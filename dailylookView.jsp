@@ -56,14 +56,14 @@
 		pstmt.setInt(1, boardID);
 		rs = pstmt.executeQuery();
 		Board board = new Board();
-			if(rs.next()) {
-				board.setBoardid(rs.getInt(1));
-				board.setBoardtitle(rs.getString(2));
-				board.setId(rs.getString(3));
-				board.setBoarddate(rs.getString(4));
-				board.setBoardcontent(rs.getString(5));
-				board.setBoardimg(rs.getString(6));
-			}
+		if(rs.next()) {
+			board.setBoardid(rs.getInt(1));
+			board.setBoardtitle(rs.getString(2));
+			board.setId(rs.getString(3));
+			board.setBoarddate(rs.getString(4));
+			board.setBoardcontent(rs.getString(5));
+			board.setBoardimg(rs.getString(6));
+		}
 	%>
 	<div class="container">
 		<div class="row">
@@ -97,7 +97,7 @@
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td colspan="2" style="height: 200px; text-align: left;"><%= board.getBoardcontent().replaceAll(" ", "&nbsp;")
+						<td colspan="2" style=" text-align: left;"><%= board.getBoardcontent().replaceAll(" ", "&nbsp;")
 							.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></td>
 					</tr>
 				</tbody>

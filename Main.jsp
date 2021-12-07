@@ -29,8 +29,12 @@
 			<input type="password" class="input" placeholder="비밀번호" name="password" maxlength="20"> 
 		</div> 
 		<input type="submit" class="btn" value="로그인"> 
-		<input type="button" class="btn" value="회원가입" onclick="location.href='register.jsp'"> 
+		<input type="button" class="btn" value="회원가입" onclick="location.href='register.jsp'">
 	</form> 
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<footer>
+    <p class="copy" >Copyright © 2021 박용수</p>
+</footer>
 </div>
 </body>
 </html>

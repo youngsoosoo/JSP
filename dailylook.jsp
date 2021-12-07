@@ -107,10 +107,10 @@
 				}
 				String sql3 = "select * from board where boardid < ?";
 				pstmt = conn.prepareStatement(sql3);
-				pstmt.setInt(1, next - (pageNumber - 1) * 10);
+				pstmt.setInt(1, next - (pageNumber) * 10);
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
-					if(pageNumber == 1){
+					if(pageNumber > 0){
 			%>
 						<a href="dailylook.jsp?pageNumber=<%=pageNumber + 1 %>"
 						class="btn btn-success btn-arraw-left">다음</a>
